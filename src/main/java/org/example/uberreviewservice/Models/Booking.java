@@ -21,4 +21,7 @@ public class Booking extends BaseModel {
     private LocalDateTime EndTime;
 
     private Long TotalDistance;
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Review review;
 }
