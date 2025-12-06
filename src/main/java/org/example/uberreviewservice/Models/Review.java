@@ -15,7 +15,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)  -- create single table entry
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Review extends BaseModel{
 
 

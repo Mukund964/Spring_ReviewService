@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public abstract class BaseModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(nullable = false)
     private int id;
 
