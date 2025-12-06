@@ -3,6 +3,7 @@ package org.example.uberreviewservice.Models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Driver;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
 
@@ -24,4 +25,11 @@ public class Booking extends BaseModel {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Review review;
+
+    @ManyToOne
+    private driver driver;
+
+    @ManyToOne
+    private passenger passenger;
+
 }
