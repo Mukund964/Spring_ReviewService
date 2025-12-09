@@ -3,9 +3,7 @@ package org.example.uberreviewservice.Models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Driver;
 import java.time.LocalDateTime;
-import java.util.Enumeration;
 
 @Entity
 @Builder
@@ -27,9 +25,11 @@ public class Booking extends BaseModel {
     private Review review;
 
     @ManyToOne
-    private driver driver;
+    @JoinColumn(nullable = false)
+    private Driver driver;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private passenger passenger;
 
 }
