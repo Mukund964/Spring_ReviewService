@@ -22,7 +22,7 @@ public class Driver extends BaseModel{
     private String LicenseNo;
 
     // 1 : M driver --> bookings
-    @OneToMany(mappedBy = "driver",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "driver",fetch = FetchType.LAZY)
     private List<Booking> Bookings = new ArrayList<>();
 
 }
