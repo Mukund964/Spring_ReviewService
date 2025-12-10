@@ -4,9 +4,13 @@ import org.example.uberreviewservice.Models.Driver;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface driverRepository extends JpaRepository<Driver, Integer> {
+
+
+    List<Driver> findAllByIdIn(List<Integer> driverIds);
 
     Optional<Driver> findDriverByIdAndLicenseNo(Integer driverId, String licenseNo);
 

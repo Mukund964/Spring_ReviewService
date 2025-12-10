@@ -1,5 +1,6 @@
 package org.example.uberreviewservice.Services;
 
+import jakarta.transaction.Transactional;
 import org.example.uberreviewservice.Models.*;
 import org.example.uberreviewservice.Repositories.BookingRepository;
 import org.example.uberreviewservice.Repositories.PassengerRepository;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ReviewService implements CommandLineRunner{
     private ReviewRepository reviewRepo;
     private BookingRepository bookingRepo;
@@ -54,17 +56,24 @@ public class ReviewService implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-//        List<Booking> bookings= bookingRepository.findByPassengerId(1);
-//
+        // N+1 problem
+//        List<Booking> bookings= bookingRepo.findAllByPassengerId(1);
 //        for(Booking b : bookings){
-//            System.out.println(b.getId());
+//            System.out.println(b.getDriver().getName());
 //        }
 
-       Optional<Driver> d =  driverRepo.RawfindByIdAndLicenseNo(1,"123Ab");
-        System.out.println(d.get().getName());
+        List<Integer> driverIds = List.of(1,2,3);
+        List<Driver> drivers = driverRepo.findAllByIdIn(driverIds);
 
-        Optional<Driver> d1 =  driverRepo.hqlfindByIdAndLicenseNo(1,"123Ab");
-        System.out.println(d1.get().getName());
+        for(Driver driver:drivers){
+            System.out.println(driver.getBookings());
+        }
+
+//       Optional<Driver> d =  driverRepo.RawfindByIdAndLicenseNo(1,"123Ab");
+//        System.out.println(d.get().getName());
+//
+//        Optional<Driver> d1 =  driverRepo.hqlfindByIdAndLicenseNo(1,"123Ab");
+//        System.out.println(d1.get().getName());
 
 
     }

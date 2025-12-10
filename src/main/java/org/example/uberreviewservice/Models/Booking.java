@@ -2,6 +2,8 @@ package org.example.uberreviewservice.Models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDateTime;
 
@@ -24,11 +26,11 @@ public class Booking extends BaseModel {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Review review;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Driver driver;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private passenger passenger;
 
