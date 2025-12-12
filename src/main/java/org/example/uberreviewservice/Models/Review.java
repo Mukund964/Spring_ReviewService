@@ -18,6 +18,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Review extends BaseModel{
 
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(nullable = false)
+    Booking booking;
 
     @Column(nullable = false)
     private String content;

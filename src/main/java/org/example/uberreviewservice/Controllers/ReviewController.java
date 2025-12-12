@@ -2,6 +2,8 @@ package org.example.uberreviewservice.Controllers;
 
 import org.example.uberreviewservice.Models.Review;
 import org.example.uberreviewservice.Services.ReviewService;
+import org.example.uberreviewservice.adaptors.createReviewRequestToReviewAdaptor;
+import org.example.uberreviewservice.dtos.reviewRequestDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +17,24 @@ public class ReviewController {
 
     //@Autowired
     private final ReviewService reviewService;
+    private final createReviewRequestToReviewAdaptor  createReviewRequestToReviewAdaptor;
 
 
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewService reviewService,createReviewRequestToReviewAdaptor  createReviewRequestToReviewAdaptor) {
         this.reviewService = reviewService;
+        this.createReviewRequestToReviewAdaptor = createReviewRequestToReviewAdaptor;
     }
 
 
     @PostMapping
-    public ResponseEntity<?> createReview(@RequestBody Review requestReview) {
+    public ResponseEntity<?> createReview(@RequestBody reviewRequestDto reviewRequestDto) {
         try {
-            Review review = reviewService.publishReview(requestReview);
+            Review convertedReview = createReviewRequestToReviewAdaptor.convertDto(reviewRequestDto);
+            if(convertedReview == null){
+                return new ResponseEntity<>("Booking not exist",HttpStatus.BAD_REQUEST);
+
+            }
+            Review review = reviewService.publishReview(convertedReview);
             return new ResponseEntity<>(review, HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
@@ -52,7 +61,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/{reviewId}")
+    @GetMapping("/delete/{reviewId}")
     public ResponseEntity<?>  DeleteReviewById(@PathVariable Long reviewId) {
         try{
             boolean isDeleted = reviewService.DeleteByID(reviewId);

@@ -61,11 +61,12 @@ public class ReviewServiceImpl implements ReviewService {
             if(e.getClass() == EntityNotFoundException.class){
                 throw new FetchNotFoundException("Review with id " + reviewId + " not found", reviewId);
             }
+            return false;
         }
     }
 
     @Override
-    public Review UpdateReview(Long reviewId, Review requestReview) {
+    public Review updateReview (Long reviewId, Review requestReview) {
         try{
 
             Review review = this.reviewRepository.findById(reviewId);
@@ -85,6 +86,9 @@ public class ReviewServiceImpl implements ReviewService {
             if(e.getClass() == EntityNotFoundException.class){
                 throw new FetchNotFoundException("Review with id " + reviewId + " not found", reviewId);
             }
+
+            return null;
         }
+
     }
 }
