@@ -4,6 +4,7 @@ import org.example.uberreviewservice.Models.Review;
 import org.example.uberreviewservice.Services.ReviewService;
 import org.example.uberreviewservice.adaptors.createReviewRequestToReviewAdaptor;
 import org.example.uberreviewservice.dtos.reviewRequestDto;
+import org.example.uberreviewservice.dtos.reviewResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +35,17 @@ public class ReviewController {
                 return new ResponseEntity<>("Booking not exist",HttpStatus.BAD_REQUEST);
 
             }
+
             Review review = reviewService.publishReview(convertedReview);
-            return new ResponseEntity<>(review, HttpStatus.CREATED);
+            reviewResponseDto responseDto = reviewResponseDto.builder()
+                    .id(Long.valueOf(review.getId()))
+                    .rating(review.getRating())
+                    .content(review.getContent())
+                    .createdAt(review.getCreatedAt())
+                    .updatedAt(review.getUpdatedAt())
+                    .build();
+
+            return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }

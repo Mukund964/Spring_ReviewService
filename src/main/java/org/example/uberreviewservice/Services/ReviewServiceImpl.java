@@ -20,6 +20,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review publishReview(Review requestReview) {
+        System.out.println("Publishing Review");
         return this.reviewRepository.save(requestReview);
     }
 
