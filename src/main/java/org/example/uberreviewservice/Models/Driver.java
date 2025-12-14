@@ -1,5 +1,6 @@
 package org.example.uberreviewservice.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler" , "Bookings"})
 public class Driver extends BaseModel{
     private String name;
 

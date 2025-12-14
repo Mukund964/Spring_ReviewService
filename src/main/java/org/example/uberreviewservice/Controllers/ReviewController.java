@@ -37,15 +37,15 @@ public class ReviewController {
             }
 
             Review review = reviewService.publishReview(convertedReview);
-            reviewResponseDto responseDto = reviewResponseDto.builder()
-                    .id(Long.valueOf(review.getId()))
-                    .rating(review.getRating())
-                    .content(review.getContent())
-                    .createdAt(review.getCreatedAt())
-                    .updatedAt(review.getUpdatedAt())
-                    .build();
+//            reviewResponseDto responseDto = reviewResponseDto.builder()
+//                    .id(Long.valueOf(review.getId()))
+//                    .rating(review.getRating())
+//                    .content(review.getContent())
+//                    .createdAt(review.getCreatedAt())
+//                    .updatedAt(review.getUpdatedAt())
+//                    .build();
 
-            return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+            return new ResponseEntity<>(review, HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
